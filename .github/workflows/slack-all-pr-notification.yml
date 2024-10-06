@@ -26,7 +26,7 @@ jobs:
           # Save filtered PRs to a JSON file
           echo "$FILTERED_PRS" > filtered_prs.json
 
-          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$FILTERED_PR\"}" "$SLACK_WEBHOOK_URL"
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$FILTERED_PRS\"}" "$SLACK_WEBHOOK_URL"
 
           # Count the number of filtered PRs
           PR_COUNT=$(echo "$FILTERED_PRS" | jq '. | length')
