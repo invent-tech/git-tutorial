@@ -15,7 +15,7 @@ jobs:
       - name: Get Open Pull Requests with Label
         id: get_open_prs
         run: |
-          LABEL="your-label-here"  # Change this to your specific label
+          LABEL="test"  # Change this to your specific label
           OPEN_PRS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/${{ github.repository }}/pulls?state=open&per_page=100")
 
