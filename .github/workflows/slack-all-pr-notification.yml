@@ -32,8 +32,8 @@ jobs:
           # Prepare message for Slack
           if [[ $PR_COUNT -gt 0 ]]; then
             MESSAGE="*Total Open PRs with label '$LABEL': $PR_COUNT*\n"
-            echo "$FILTERED_PRS" | jq -r '.[] | "*Title:* \(.title)\n*URL:* \(.html_url)\n*Author:* \(.user.login)\n*Created At:* \(.created_at)\n"' >> slack_message.txt
-            MESSAGE+="$FILTERED_PRS" | jq -r '.[] | "*Title:* \(.title)\n*URL:* \(.html_url)\n*Author:* \(.user.login)\n*Created At:* \(.created_at)\n"'
+            PR_DETAILS=$(echo "$FILTERED_PRS" | jq -r '.[] | "*Title:* \(.title)\n*URL:* \(.html_url)\n*Author:* \(.user.login)\n*Created At:* \(.created_at)\n"')
+            MESSAGE+="$PR_DETAILS"
             echo "::set-output name=slack_message::$MESSAGE"
           else
             echo "::set-output name=slack_message::No open PRs with the specified label."
