@@ -1,9 +1,9 @@
-]name: Fetch Open PRs with Specific Label
+name: Fetch Open PRs with Specific Label
 
 on:
   workflow_dispatch:  # Allows manual triggering of the workflow
   schedule:
-    - cron: ''*/5 * * * *'  # Runs every day at 9 AM UTC
+    - cron: '*/5 * * * *'  # Runs every day at 9 AM UTC
 
 jobs:
   fetch_open_prs:
