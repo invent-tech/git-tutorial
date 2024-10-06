@@ -16,21 +16,17 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEEBHOOK }}
         id: get_open_prs
         run: |
-          LABEL="test"  # Change this to your specific label
+          LABEL="test"
           OPEN_PRS=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/${{ github.repository }}/pulls?state=open&per_page=100")
 
-
           FILTERED_PRS=$(echo "$OPEN_PRS" | jq --arg LABEL "$LABEL" '[.[] | select(.labels[]? | .name == $LABEL)]')
 
-          # Save filtered PRs to a JSON file
           echo "$FILTERED_PRS" > filtered_prs.json
 
-          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$FILTERED_PRS\"}" "$SLACK_WEBHOOK_URL"
-
-          # Count the number of filtered PRs
           PR_COUNT=$(echo "$FILTERED_PRS" | jq '. | length')
           echo "Total Open PRs with label '$LABEL': $PR_COUNT"
 
-          # Print details of each filtered PR
           echo "$FILTERED_PRS" | jq -r '.[] | "Title: \(.title), URL: \(.html_url), Author: \(.user.login), Created At: \(.created_at)"'
+          MESSAGE = "$FILTERED_PRS" | jq -r '.[] | "Title: \(.title), URL: \(.html_url), Author: \(.user.login), Created At: \(.created_at)"'
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$MESSAGE\"}" "${{ secrets.SLACK_WEEBHOOK }}"
