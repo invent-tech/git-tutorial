@@ -42,9 +42,9 @@ jobs:
               URL=$(echo "$pr" | jq -r '.html_url')
               AUTHOR=$(echo "$pr" | jq -r '.user.login')
               CREATED_AT=$(echo "$pr" | jq -r '.created_at')
-              echo "PR details : $TITLE"
               # Append formatted string to PR_DETAILS
               PR_DETAILS+="*Title:* $TITLE\n*URL:* $URL\n*Author:* $AUTHOR\n*Created At:* $CREATED_AT\n\n"
+              echo "PR details : $PR_DETAILS"
             done
             echo "PR details : $PR_DETAILS"
             MESSAGE+="$PR_DETAILS"
