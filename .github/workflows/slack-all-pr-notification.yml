@@ -34,7 +34,7 @@ jobs:
             MESSAGE="*Total Open PRs with label '$LABEL': $PR_COUNT*\n"
             PR_DETAILS=$(echo "$FILTERED_PRS" | jq -r '.[] | "*Title:* \(.title)\n*URL:* \(.html_url)\n*Author:* \(.user.login)\n*Created At:* \(.created_at)\n"')
             MESSAGE+="$PR_DETAILS"
-            echo "::set-output name=slack_message::$MESSAGE"
+            echo "::set-output name=slack_message::$PR_DETAILS"
           else
             echo "::set-output name=slack_message::No open PRs with the specified label."
           fi
