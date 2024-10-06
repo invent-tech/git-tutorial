@@ -43,8 +43,9 @@ jobs:
               AUTHOR=$(echo "$pr" | jq -r '.user.login')
               CREATED_AT=$(echo "$pr" | jq -r '.created_at')
               # Append formatted string to PR_DETAILS
-              PR_DETAILS+="*Title:* $TITLE\n*URL:* $URL\n*Author:* $AUTHOR\n*Created At:* $CREATED_AT\n\n"
+              PR_DETAIL+="*Title:* $TITLE\n*URL:* $URL\n*Author:* $AUTHOR\n*Created At:* $CREATED_AT\n\n"
               echo "PR details : $PR_DETAILS"
+              PR_DETAILS="${PR_DETAILS}${PR_DETAIL},"
             done
             echo "Final details : $PR_DETAILS"
             MESSAGE+="$PR_DETAILS"
