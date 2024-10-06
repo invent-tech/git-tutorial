@@ -1,0 +1,26 @@
+name: Slack Notification for New Pull Requests
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  notify-slack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEEBHOOK }}
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_URL="${{ github.event.pull_request.html_url }}"
+          PR_REVIEWERS=$(echo "${{ github.event.pull_request.requested_reviewers }}" | jq -r '.[].login' | paste -sd ', ')
+          PR_STATUS="${{ github.event.pull_request.state }}"
+
+          if [ -z "$PR_REVIEWERS" ]; then
+            PR_REVIEWERS="No reviewers assigned."
+          fi
+
+          MESSAGE="*New Pull Request Created!*\n*Title:* $PR_TITLE\n*URL:* $PR_URL\n*Status:* $PR_STATUS\n*Reviewers:* $PR_REVIEWERS"
+
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$MESSAGE\"}" "$SLACK_WEBHOOK_URL"
