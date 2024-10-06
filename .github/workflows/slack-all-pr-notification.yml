@@ -40,7 +40,7 @@ jobs:
               AUTHOR=$(echo "$pr" | jq -r '.user.login')
               CREATED_AT=$(echo "$pr" | jq -r '.created_at')
               PR_DETAILS+="*Title:* $TITLE\n*URL:* $URL\n*Author:* $AUTHOR\n*Created At:* $CREATED_AT\n\n"
-            done <<(echo "$FILTERED_PRS" | jq -c '.[]')
+            done < <(echo "$FILTERED_PRS" | jq -c '.[]')
 
             echo "Final details : $PR_DETAILS"
             MESSAGE+="$PR_DETAILS"
