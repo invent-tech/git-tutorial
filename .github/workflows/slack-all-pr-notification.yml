@@ -44,4 +44,4 @@ jobs:
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{
             "text": "${{ steps.get_open_prs.outputs.slack_message }}"
-          }' ${{ secrets.SLACK_WEBHOOK_URL }}
+          }' ${{ secrets.SLACK_WEEBHOOK }}
