@@ -1,8 +1,10 @@
 name: Slack Notification for New Pull Requests
 
 on:
-  pull_request:
-    types: [opened]
+  schedule:
+    - cron: '0 14 * * *'  # Runs every day at 9 AM UT
+  # pull_request:
+  #   types: [opened]
 
 jobs:
   notify-slack:
