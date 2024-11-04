@@ -1,6 +1,7 @@
 name: Post Ruby Output to Slack
 
 on:
+  workflow_dispatch: 
   schedule:
     - cron: "0 9 * * *"  # Runs every day at 9 AM UT
 
