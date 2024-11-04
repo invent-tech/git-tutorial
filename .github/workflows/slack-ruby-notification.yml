@@ -9,11 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        id: run_script
         uses: actions/checkout@v3
+
+      - name: Run Ruby Script
+        id: run_script
         run: |
           output=$(ruby hello.rb)
           echo "::set-output name=script_output::$output"
+      
         - name: Post to Slack
           uses: slackapi/slack-github-action@v1.23.0
           with:
