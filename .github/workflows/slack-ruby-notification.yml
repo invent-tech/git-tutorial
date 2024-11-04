@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Run Ruby Script
         id: run_script
         run: |
-          output=$(test_ruby.rb)
+          output=$(ruby test_ruby.rb)
           echo "::set-output name=script_output::$output"
 
       - name: Post to Slack
