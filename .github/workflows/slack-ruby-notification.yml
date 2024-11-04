@@ -1,0 +1,25 @@
+name: Post Ruby Output to Slack
+
+on:
+  schedule:
+    - cron: "0 9 * * *"  # Runs every day at 9 AM UT
+
+jobs:
+  notify-slack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        id: run_script
+        uses: actions/checkout@v3
+        run: |
+          output=$(ruby hello.rb)
+          echo "::set-output name=script_output::$output"
+        - name: Post to Slack
+          uses: slackapi/slack-github-action@v1.23.0
+          with:
+           payload: |
+            {
+              "text": "Ruby Script Output:\n${{ steps.run_script.outputs.script_output }}"
+            }
+          env:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEEBHOOK }}
