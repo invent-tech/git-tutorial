@@ -16,13 +16,13 @@ jobs:
         run: |
           output=$(ruby hello.rb)
           echo "::set-output name=script_output::$output"
-      
-        - name: Post to Slack
-          uses: slackapi/slack-github-action@v1.23.0
-          with:
-           payload: |
-            {
-              "text": "Ruby Script Output:\n${{ steps.run_script.outputs.script_output }}"
-            }
-          env:
-            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEEBHOOK }}
+
+      - name: Post to Slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          payload: |
+           {
+            "text": "Ruby Script Output:\n${{ steps.run_script.outputs.script_output }}"
+           }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEEBHOOK }}
