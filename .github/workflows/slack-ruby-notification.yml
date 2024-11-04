@@ -15,7 +15,7 @@ jobs:
       - name: Run Ruby Script
         id: run_script
         run: |
-          output=$(test_ruby.rb)
+          output=$(ruby test_ruby.rb)
           echo "::set-output name=script_output::$output"
 
       - name: Post to Slack
